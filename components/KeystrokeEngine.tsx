@@ -6,6 +6,7 @@ import { Brain, Keyboard, Activity } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useTranslation } from '@/lib/useTranslation';
 
 interface KeyLog {
   key: string;
@@ -14,6 +15,7 @@ interface KeyLog {
 }
 
 export const KeystrokeEngine = () => {
+  const { t } = useTranslation();
   const { user } = useAuthStore();
   const [text, setText] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -51,9 +53,10 @@ export const KeystrokeEngine = () => {
 
       logs.current.push({ key: e.key, pressTime, releaseTime });
       
-      const words = text.trim().split(/\s+/).length;
-      const minutes = (Date.now() - (startTime.current || Date.now())) / 60000;
-      const wpm = minutes > 0 ? Math.round(words / minutes) : 0;
+      const currentText = (e.target as HTMLTextAreaElement).value;
+      const words = currentText.trim() === "" ? 0 : currentText.trim().split(/\s+/).length;
+      const elapsedMinutes = (Date.now() - (startTime.current || Date.now())) / 60000;
+      const wpm = elapsedMinutes > 0.08 ? Math.round(words / elapsedMinutes) : 0; // Starts calculating after ~5 seconds
 
       setMetrics(prev => ({ ...prev, dwell: dwellTime, wpm }));
     }
@@ -61,10 +64,10 @@ export const KeystrokeEngine = () => {
 
   const analyzeMentalState = (m: typeof metrics) => {
     if (m.backspaces > 20 || (m.flight > 500 && m.wpm < 20)) 
-      return { status: "Stress Tinggi", level: "Red" };
+      return { status: t("highStress"), level: "Red" };
     if (m.dwell > 200 || m.backspaces > 10) 
-      return { status: "Kelelahan Kognitif", level: "Yellow" };
-    return { status: "Normal", level: "Green" };
+      return { status: t("cognitiveFatigue"), level: "Yellow" };
+    return { status: t("normal"), level: "Green" };
   };
 
   const saveSession = async () => {
@@ -91,11 +94,13 @@ export const KeystrokeEngine = () => {
     }
   };
 
+  const analysis = analyzeMentalState(metrics);
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="p-4 bg-slate-900 border-slate-800 text-white">
-          <p className="text-xs text-slate-400">Kecepatan Mengetik</p>
+          <p className="text-xs text-slate-400">{t("typingSpeed")}</p>
           <p className="text-xl font-bold">{metrics.wpm} WPM</p>
         </Card>
         <Card className="p-4 bg-slate-900 border-slate-800 text-white">
@@ -103,8 +108,14 @@ export const KeystrokeEngine = () => {
           <p className="text-xl font-bold">{metrics.backspaces}</p>
         </Card>
         <Card className="p-4 bg-slate-900 border-slate-800 text-white">
-          <p className="text-xs text-slate-400">Status Mental</p>
-          <p className="text-xl font-bold text-emerald-400">{analyzeMentalState(metrics).status}</p>
+          <p className="text-xs text-slate-400">{t("stressIndicator")}</p>
+          <p className={`text-xl font-bold ${
+            analysis.level === "Red" ? "text-red-400" : 
+            analysis.level === "Yellow" ? "text-yellow-400" : 
+            "text-emerald-400"
+          }`}>
+            {analysis.status}
+          </p>
         </Card>
       </div>
 
