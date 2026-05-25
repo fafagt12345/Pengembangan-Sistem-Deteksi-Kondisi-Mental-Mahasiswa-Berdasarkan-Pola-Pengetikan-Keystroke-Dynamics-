@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+
+    --background: 225 15% 7%;
+    --foreground: 210 40% 98%;
+    --card: 230 16% 12%;
+    --card-foreground: 210 40% 98%;
+    --border: 230 18% 16%;
+    --input: 230 18% 16%;
+    --ring: 186 100% 68%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    font-family: Inter, system-ui, sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 22%),
+      radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.16), transparent 28%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+    background-attachment: fixed;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  ::selection {
+    background-color: rgba(56, 189, 248, 0.35);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .shadow-glow {
+    box-shadow: 0 30px 120px rgba(15, 23, 42, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.08);
+  }
+
+  .glassmorphism {
+    @apply bg-slate-900/50 border border-slate-800 backdrop-blur-xl shadow-2xl;
+  }
+}
