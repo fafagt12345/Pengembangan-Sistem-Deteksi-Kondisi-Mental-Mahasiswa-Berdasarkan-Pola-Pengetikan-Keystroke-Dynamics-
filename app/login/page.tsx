@@ -40,9 +40,9 @@ export default function LoginPage() {
     } catch (error: any) {
       console.error("Login Error:", error);
       let errorMessage = error.message;
-      if (error.code === 'auth/user-not-found') errorMessage = "Email tidak terdaftar";
-      if (error.code === 'auth/wrong-password') errorMessage = "Password salah";
-      if (error.code === 'auth/invalid-credential') errorMessage = "Email atau password salah";
+      if (error.code === 'auth/user-not-found') errorMessage = t("emailNotFound");
+      if (error.code === 'auth/wrong-password') errorMessage = t("wrongPassword");
+      if (error.code === 'auth/invalid-credential') errorMessage = t("invalidCredential");
       alert(t("loginFailed") + ": " + errorMessage);
     } finally {
       setLoading(false);

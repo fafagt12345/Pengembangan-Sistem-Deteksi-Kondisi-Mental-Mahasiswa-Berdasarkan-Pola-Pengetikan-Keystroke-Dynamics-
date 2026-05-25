@@ -71,7 +71,7 @@ export default function RegisterPage() {
     } catch (error: any) {
       console.error("Registration Error:", error);
       let errorMessage = error.message;
-      if (error.code === 'auth/email-already-in-use') errorMessage = "Email sudah terdaftar";
+      if (error.code === 'auth/email-already-in-use') errorMessage = t("emailAlreadyInUse");
       alert(t("registerFailed") + ": " + errorMessage);
     } finally {
       setLoading(false);

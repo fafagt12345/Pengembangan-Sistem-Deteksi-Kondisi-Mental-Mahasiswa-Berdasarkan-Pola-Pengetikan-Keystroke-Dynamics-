@@ -85,7 +85,7 @@ export const KeystrokeEngine = () => {
         analysis,
         timestamp: serverTimestamp(),
       });
-      alert("Data berhasil disimpan.");
+      alert(t("saveSuccess"));
     } catch (error) {
       console.error("Error saving session:", error);
       alert("Gagal menyimpan data.");
@@ -121,7 +121,7 @@ export const KeystrokeEngine = () => {
 
       <textarea
         className="w-full h-64 p-6 bg-slate-950 border border-slate-800 rounded-2xl text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none"
-        placeholder="Apa yang sedang memberatkan pikiranmu saat ini? Ceritakanlah di sini... Tidak perlu takut salah tulis, tidak perlu rapi. Biarkan hatimu berbicara melalui jemarimu. Apa pun yang ingin kamu lepaskan, kami siap mendengarkan..."
+        placeholder={t("typingPlaceholder")}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         onChange={(e) => setText(e.target.value)}
