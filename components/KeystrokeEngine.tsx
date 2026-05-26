@@ -55,8 +55,8 @@ export const KeystrokeEngine = () => {
       
       const currentText = (e.target as HTMLTextAreaElement).value;
       const words = currentText.trim() === "" ? 0 : currentText.trim().split(/\s+/).length;
-      const elapsedMinutes = (Date.now() - (startTime.current || Date.now())) / 60000;
-      const wpm = elapsedMinutes > 0.08 ? Math.round(words / elapsedMinutes) : 0; // Starts calculating after ~5 seconds
+      const elapsedMinutes = (performance.now() - (startTime.current ? startTime.current : performance.now())) / 60000;
+      const wpm = elapsedMinutes > 0.01 ? Math.round(words / elapsedMinutes) : 0; 
 
       setMetrics(prev => ({ ...prev, dwell: dwellTime, wpm }));
     }
