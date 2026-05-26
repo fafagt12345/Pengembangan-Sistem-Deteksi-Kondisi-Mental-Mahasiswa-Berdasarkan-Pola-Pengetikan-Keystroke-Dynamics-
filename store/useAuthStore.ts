@@ -13,7 +13,7 @@ interface UserProfile {
   photoURL: string | null;
   prodi?: string;
   semester?: string;
-  role?: string;
+  role?: string | null;
   createdAt?: any; // Tipe serverTimestamp
   updatedAt?: any; // Tipe serverTimestamp
 }
@@ -23,7 +23,7 @@ interface AuthState {
   loading: boolean;
   authInitialized: boolean; // Untuk melacak apakah status auth Firebase sudah diperiksa
   setUser: (user: UserProfile | null) => void;
-  setRole: (role: string) => void;
+  setRole: (role: string | null) => void;
   setAuthInitialized: (initialized: boolean) => void;
 }
 
