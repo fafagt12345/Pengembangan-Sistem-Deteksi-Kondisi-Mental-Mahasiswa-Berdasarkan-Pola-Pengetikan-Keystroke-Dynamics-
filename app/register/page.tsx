@@ -42,8 +42,11 @@ export default function RegisterPage() {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
-        photoURL: user.photoURL,
-        updatedAt: serverTimestamp(),
+        photoURL: user.photoURL || null,
+        prodi: "", // Default kosong untuk pendaftaran Google, bisa diupdate nanti
+        semester: "", // Default kosong untuk pendaftaran Google, bisa diupdate nanti
+        role: "mahasiswa", // Peran default
+        createdAt: serverTimestamp(), // Gunakan createdAt untuk pembuatan awal
       }, { merge: true });
 
       router.push("/dashboard");

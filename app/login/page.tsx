@@ -32,8 +32,25 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Periksa apakah data pengguna sudah ada di Firestore, jika belum, buat
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          role: "mahasiswa", // Peran default untuk pendaftaran Google baru
+          createdAt: serverTimestamp(),
+        });
+      }
       router.push("/dashboard");
+
     } catch (error: any) {
       console.error("Google Login Error:", error);
       alert(t("loginFailed") + ": " + error.message);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLanguageStore } from '@/store/useLanguageStore';
+import { useLanguageStore } from '@/store/useLanguageStore'; // Pastikan ini mengimpor store yang benar
 import { translations } from '@/lib/translations';
 
 export function useTranslation() {
