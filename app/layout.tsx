@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "@/components/AuthProvider";
 import { Footer } from "@/components/Footer";
-import { MarketingNavbar } from "@/components/MarketingNavbar";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="id" className="scroll-smooth">
       <body className="font-sans antialiased text-slate-100 bg-slate-950 min-h-screen">
         <AuthProvider>
-          <MarketingNavbar />
+          <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
         </AuthProvider>
