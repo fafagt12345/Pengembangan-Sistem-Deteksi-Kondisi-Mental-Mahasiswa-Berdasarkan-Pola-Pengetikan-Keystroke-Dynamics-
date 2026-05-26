@@ -64,6 +64,8 @@ export default function RegisterPage() {
         uid: user.uid,
         email: user.email,
         displayName: data.fullName,
+        photoURL: user.photoURL || null,
+        role: "mahasiswa",
         createdAt: serverTimestamp(),
       });
 
