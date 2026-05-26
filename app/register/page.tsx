@@ -25,7 +25,7 @@ export default function RegisterPage() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
   });
 

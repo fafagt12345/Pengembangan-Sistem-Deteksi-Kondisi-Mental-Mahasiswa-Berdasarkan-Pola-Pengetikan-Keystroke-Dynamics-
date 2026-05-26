@@ -23,7 +23,7 @@ export default function LoginPage() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
   });
 
