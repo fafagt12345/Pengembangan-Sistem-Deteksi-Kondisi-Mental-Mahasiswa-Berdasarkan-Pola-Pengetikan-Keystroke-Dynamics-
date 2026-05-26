@@ -19,6 +19,8 @@ const registerSchema = z.object({
   fullName: z.string().min(2, "Nama terlalu pendek"),
   email: z.string().email("Email tidak valid"),
   password: z.string().min(6, "Password minimal 6 karakter"),
+  prodi: z.string().min(2, "Program studi wajib diisi"),
+  semester: z.string().min(1, "Semester wajib diisi"),
 });
 
 export default function RegisterPage() {
@@ -65,6 +67,8 @@ export default function RegisterPage() {
         email: user.email,
         displayName: data.fullName,
         photoURL: user.photoURL || null,
+        prodi: data.prodi,
+        semester: data.semester,
         role: "mahasiswa",
         createdAt: serverTimestamp(),
       });
@@ -99,6 +103,18 @@ export default function RegisterPage() {
               <Label htmlFor="email">{t("email")}</Label>
               <Input id="email" type="email" {...register("email")} className="bg-slate-950 border-slate-800 text-white" />
               {errors.email && <p className="text-xs text-red-400">{errors.email.message as string}</p>}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="prodi">Program Studi</Label>
+                <Input id="prodi" {...register("prodi")} placeholder="Contoh: Informatika" className="bg-slate-950 border-slate-800 text-white" />
+                {errors.prodi && <p className="text-xs text-red-400">{errors.prodi.message as string}</p>}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="semester">Semester</Label>
+                <Input id="semester" type="number" {...register("semester")} placeholder="1-14" className="bg-slate-950 border-slate-800 text-white" />
+                {errors.semester && <p className="text-xs text-red-400">{errors.semester.message as string}</p>}
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t("password")}</Label>

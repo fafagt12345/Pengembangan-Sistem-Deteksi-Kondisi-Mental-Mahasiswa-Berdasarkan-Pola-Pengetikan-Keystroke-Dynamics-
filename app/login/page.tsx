@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,7 +45,14 @@ export default function LoginPage() {
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+      
+      // Validasi apakah data di Firestore ada
+      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+      if (!userDoc.exists()) {
+        console.warn("Data profil tambahan tidak ditemukan di Firestore");
+      }
+
       router.push("/dashboard");
     } catch (error: any) {
       console.error("Login Error:", error);
