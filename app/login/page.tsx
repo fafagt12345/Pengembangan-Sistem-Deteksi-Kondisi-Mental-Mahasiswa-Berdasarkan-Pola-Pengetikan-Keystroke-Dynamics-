@@ -40,9 +40,9 @@ export default function LoginPage() {
     } catch (error: any) {
       console.error("Login Error:", error);
       let errorMessage = error.message;
-      if (error.code === 'auth/user-not-found') errorMessage = t("emailNotFound");
-      if (error.code === 'auth/wrong-password') errorMessage = t("wrongPassword");
-      if (error.code === 'auth/invalid-credential') errorMessage = t("invalidCredential");
+      if (error.code === 'auth/user-not-found') errorMessage = "Email tidak terdaftar";
+      if (error.code === 'auth/wrong-password') errorMessage = "Password salah";
+      if (error.code === 'auth/invalid-credential') errorMessage = "Email atau password salah";
       alert(t("loginFailed") + ": " + errorMessage);
     } finally {
       setLoading(false);
@@ -79,12 +79,18 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <Button variant="outline" className="w-full border-slate-700 hover:bg-slate-800 text-slate-200" onClick={handleGoogleLogin} disabled={loading}>
+          <Button 
+            variant={"outline" as any} 
+            className="w-full border-slate-700 hover:bg-slate-800 text-slate-200" 
+            onClick={handleGoogleLogin}
+            disabled={loading}
+          >
             Google
           </Button>
 
           <p className="text-center text-sm text-slate-400">
-            Belum punya akun? <Link href="/register" className="text-cyan-400 hover:underline">{t("register")}</Link>
+            Belum punya akun?{" "}
+            <Link href="/register" className="text-cyan-400 hover:underline">{t("register")}</Link>
           </p>
         </CardContent>
       </Card>

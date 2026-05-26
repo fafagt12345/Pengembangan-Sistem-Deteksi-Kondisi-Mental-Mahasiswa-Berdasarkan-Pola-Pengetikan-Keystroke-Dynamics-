@@ -113,7 +113,7 @@ export default function RegisterPage() {
           </div>
 
           <Button 
-            variant="outline" 
+            variant={"outline" as any} 
             className="w-full border-slate-700 hover:bg-slate-800 text-slate-200" 
             onClick={handleGoogleLogin}
             disabled={loading}

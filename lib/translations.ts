@@ -1,3 +1,5 @@
+export const translations = {
+  id: {
     fullName: "Nama Lengkap",
     confirmPassword: "Konfirmasi Password",
     passwordMismatch: "Password tidak cocok",
@@ -25,19 +27,8 @@
     manageSettings: "Kelola pengaturan",
     userAccess: "Akses Pengguna",
     userAccessDesc: "Kelola peran dan izin.",
-...
     uptime: "uptime",
     secureEnvironment: "Lingkungan penelitian yang aman dan stabil.",
-    
-    // History
-    history: "Riwayat",
-    reviewSessions: "Tinjau sesi keystroke masa lalu.",
-    recentActivity: "Aktivitas Terbaru",
-    sessions: "sesi",
-    participants: "Peserta",
-    studentCohort: "Kohor Siswa",
-    date: "Tanggal",
-    score: "Skor",
     insight: "Wawasan",
     deepReview: "Tinjauan Mendalam",
     deepReviewDesc: "Gunakan tampilan riwayat lengkap untuk mengidentifikasi pola dari waktu ke waktu, menghubungkan perubahan dengan fase studi, dan mendukung keputusan konseling berbasis bukti.",
@@ -55,3 +46,6 @@
     integrationDesc: "Catatan desain antarmuka, aliran data, dan panduan ekspor.",
     uxPatterns: "Pola UX",
     uxPatternsDesc: "Halaman yang direkomendasikan, perilaku mobile, dan alur kerja tinjauan.",
+  },
+  en: {} // Ensure you close the 'id' block and add 'en' keys as needed
+};
