@@ -20,8 +20,10 @@ interface UserProfile {
 
 interface AuthState {
   user: UserProfile | null;
+  loading: boolean;
   authInitialized: boolean; // Untuk melacak apakah status auth Firebase sudah diperiksa
   setUser: (user: UserProfile | null) => void;
+  setRole: (role: string) => void;
   setAuthInitialized: (initialized: boolean) => void;
 }
 
@@ -29,8 +31,12 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
+      loading: true,
       authInitialized: false,
       setUser: (user) => set({ user }),
+      setRole: (role) => set((state) => ({
+        user: state.user ? { ...state.user, role } : null
+      })),
       setAuthInitialized: (initialized) => set({ authInitialized: initialized }),
     }),
     {
@@ -43,6 +49,7 @@ export const useAuthStore = create<AuthState>()(
         // Kita bisa mengatur listener Firebase di sini
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
           if (firebaseUser) {
+            useAuthStore.getState().setUser(null); // Reset sementara
             const userDocRef = doc(db, "users", firebaseUser.uid);
             const userDoc = await getDoc(userDocRef);
             if (userDoc.exists()) {
@@ -71,6 +78,7 @@ export const useAuthStore = create<AuthState>()(
           } else {
             useAuthStore.getState().setUser(null);
           }
+          useAuthStore.setState({ loading: false });
           useAuthStore.getState().setAuthInitialized(true);
         });
 
