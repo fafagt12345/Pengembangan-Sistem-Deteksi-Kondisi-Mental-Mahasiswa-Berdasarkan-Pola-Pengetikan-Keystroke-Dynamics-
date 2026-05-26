@@ -9,7 +9,7 @@ import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useTranslation } from "@/lib/useTranslation";
@@ -64,7 +64,7 @@ export default function LoginPage() {
       <Card className="relative w-full max-w-md border-slate-800 bg-slate-900/50 backdrop-blur-xl">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-3xl font-bold text-white">{t("login")}</CardTitle>
-          <CardDescription className="text-slate-400">Masuk ke akun penelitian Anda</CardDescription>
+          <p className="text-slate-400 text-sm">Masuk ke akun penelitian Anda</p>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

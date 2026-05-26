@@ -26,7 +26,7 @@ export const KeystrokeEngine = () => {
   const startTime = useRef<number | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!startTime.current) startTime.current = Date.now();
+    if (!startTime.current) startTime.current = performance.now();
     
     if (e.key === "Backspace") {
       setMetrics(prev => ({ ...prev, backspaces: prev.backspaces + 1 }));
