@@ -2,21 +2,30 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useTranslation } from "@/lib/useTranslation";
+
+const loginSchema = z.object({
+  email: z.string().email("Email tidak valid"),
+  password: z.string().min(1, "Password wajib diisi"),
+});
 
 export default function LoginPage() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -32,7 +41,7 @@ export default function LoginPage() {
     }
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
@@ -55,17 +64,19 @@ export default function LoginPage() {
       <Card className="relative w-full max-w-md border-slate-800 bg-slate-900/50 backdrop-blur-xl">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-3xl font-bold text-white">{t("login")}</CardTitle>
-          <p className="text-slate-400">Masuk ke akun penelitian Anda</p>
+          <CardDescription className="text-slate-400">Masuk ke akun penelitian Anda</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">{t("email")}</Label>
-              <Input id="email" type="email" {...register("email")} className="bg-slate-950 border-slate-800 text-white" required />
+              <Input id="email" type="email" {...register("email")} className="bg-slate-950 border-slate-800 text-white" />
+              {errors.email && <p className="text-xs text-red-400">{errors.email.message as string}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t("password")}</Label>
-              <Input id="password" type="password" {...register("password")} className="bg-slate-950 border-slate-800 text-white" required />
+              <Input id="password" type="password" {...register("password")} className="bg-slate-950 border-slate-800 text-white" />
+              {errors.password && <p className="text-xs text-red-400">{errors.password.message as string}</p>}
             </div>
             <Button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-500 text-white transition-all" disabled={loading}>
               {loading ? "Loading..." : t("login")}

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -53,7 +53,7 @@ export default function RegisterPage() {
     }
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -92,15 +92,18 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="fullName">Nama Lengkap</Label>
-              <Input id="fullName" {...register("fullName")} className="bg-slate-950 border-slate-800 text-white" required />
+              <Input id="fullName" {...register("fullName")} className="bg-slate-950 border-slate-800 text-white" />
+              {errors.fullName && <p className="text-xs text-red-400">{errors.fullName.message as string}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">{t("email")}</Label>
-              <Input id="email" type="email" {...register("email")} className="bg-slate-950 border-slate-800 text-white" required />
+              <Input id="email" type="email" {...register("email")} className="bg-slate-950 border-slate-800 text-white" />
+              {errors.email && <p className="text-xs text-red-400">{errors.email.message as string}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t("password")}</Label>
-              <Input id="password" type="password" {...register("password")} className="bg-slate-950 border-slate-800 text-white" required />
+              <Input id="password" type="password" {...register("password")} className="bg-slate-950 border-slate-800 text-white" />
+              {errors.password && <p className="text-xs text-red-400">{errors.password.message as string}</p>}
             </div>
             <Button type="submit" className="w-full bg-violet-600 hover:bg-violet-500 text-white transition-all" disabled={loading}>
               {loading ? "Mendaftarkan..." : t("register")}
