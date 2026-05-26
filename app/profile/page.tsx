@@ -81,7 +81,7 @@ export default function ProfilePage() {
             </div>
             <Button 
               onClick={() => setIsEditing(!isEditing)}
-              variant="outline" 
+              variant={"outline" as any} 
               className="rounded-full border-slate-700 text-slate-300 hover:border-cyan-400 hover:text-cyan-100"
             >
               {isEditing ? <><X className="mr-2 h-4 w-4" /> Batal</> : "Edit Profil"}
