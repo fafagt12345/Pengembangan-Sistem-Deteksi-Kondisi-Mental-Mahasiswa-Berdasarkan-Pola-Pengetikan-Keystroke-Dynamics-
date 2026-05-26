@@ -19,6 +19,7 @@ export const useLanguageStore = create<LanguageStore>()(
     {
       name: 'language-storage',
       storage: createJSONStorage(() => localStorage),
+      skipHydration: false,
     }
   )
 );

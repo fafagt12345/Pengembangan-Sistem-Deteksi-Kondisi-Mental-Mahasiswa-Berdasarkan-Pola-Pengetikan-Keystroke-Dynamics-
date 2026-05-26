@@ -44,9 +44,9 @@ export const useAuthStore = create<AuthState>()(
       storage: createJSONStorage(() => localStorage),
       // Hanya persist data user, bukan authInitialized
       partialize: (state) => ({ user: state.user }),
-      onRehydrateStorage: () => {
+      onRehydrateStorage: () => (state) => {
         // Ini akan dijalankan saat store direhidrasi dari localStorage
-        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+        onAuthStateChanged(auth, async (firebaseUser) => {
           try {
             if (firebaseUser) {
               const userDocRef = doc(db, "users", firebaseUser.uid);
@@ -85,8 +85,6 @@ export const useAuthStore = create<AuthState>()(
             useAuthStore.getState().setAuthInitialized(true);
           }
         });
-
-        return () => unsubscribe();
       },
     }
   )

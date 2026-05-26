@@ -62,12 +62,20 @@ export default function LoginPage() {
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+      const { user } = await signInWithEmailAndPassword(auth, data.email, data.password);
       
-      // Validasi apakah data di Firestore ada
-      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+      // Pastikan data profil ada di Firestore (Sinkronisasi Otomatis)
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+      
       if (!userDoc.exists()) {
-        console.warn("Data profil tambahan tidak ditemukan di Firestore");
+        await setDoc(userDocRef, {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName || data.email.split('@')[0],
+          role: "mahasiswa",
+          createdAt: serverTimestamp(),
+        });
       }
 
       router.push("/dashboard");
