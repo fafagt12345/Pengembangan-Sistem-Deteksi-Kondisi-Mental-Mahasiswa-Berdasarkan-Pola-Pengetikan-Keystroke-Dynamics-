@@ -25,5 +25,32 @@ export const translations = {
     stressIndicator: "Indikator Kondisi",
     historyTitle: "Riwayat Analisis",
     viewHistoryDesc: "Berikut adalah daftar riwayat analisis kondisi kesehatan mental berdasarkan pola ketikan Anda."
+  },
+  en: {
+    fullName: "Full Name",
+    confirmPassword: "Confirm Password",
+    passwordMismatch: "Password mismatch",
+    agreeTerms: "I agree to the terms and conditions",
+    invalidPassword: "Password must be at least 8 characters",
+    registerFailed: "Registration failed:",
+    loginFailed: "Login failed:",
+    emailNotFound: "Email not registered",
+    wrongPassword: "Wrong password",
+    invalidCredential: "Email or password incorrect",
+    emailAlreadyInUse: "Email already in use",
+    weakPassword: "Weak password (min 6 characters)",
+    typingPlaceholder: "What's on your mind? Tell us here...",
+    saveSuccess: "Data saved successfully.",
+    googleLoginFailed: "Google login failed:",
+    profilePhoto: "Profile Photo",
+    enterName: "Enter your name",
+    registerNow: "Register Now",
+    highStress: "High Stress",
+    cognitiveFatigue: "Cognitive Fatigue",
+    normal: "Normal / Stable",
+    typingSpeed: "Typing Speed",
+    stressIndicator: "Condition Indicator",
+    historyTitle: "Analysis History",
+    viewHistoryDesc: "Below is the history of mental health condition analysis based on your typing patterns."
   }
 };
