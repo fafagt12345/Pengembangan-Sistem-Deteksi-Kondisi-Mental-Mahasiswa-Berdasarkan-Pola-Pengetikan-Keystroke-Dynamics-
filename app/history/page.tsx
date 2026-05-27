@@ -36,7 +36,7 @@ export default function HistoryPage() {
         setSessions(data);
       } catch (error) {
         console.error("Error fetching history:", error);
-        setError(t("fetchError") || "Gagal memuat data. Pastikan indeks database telah dikonfigurasi.");
+        setError(t("fetchError") || "Gagal memuat data. Sistem sedang menyiapkan indeks database, mohon tunggu sebentar.");
       } finally {
         setLoading(false);
       }
