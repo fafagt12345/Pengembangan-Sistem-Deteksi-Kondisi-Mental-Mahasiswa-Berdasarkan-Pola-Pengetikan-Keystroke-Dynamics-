@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 text-white text-xl font-bold">
-              {t("appName") || "Mental Health Keystroke"} {/* Asumsi appName ada di translations */}
+              {t("appName") || "Cek Mental Mahasiswa"}
             </Link>
           </div>
           <div className="flex items-center space-x-4">
