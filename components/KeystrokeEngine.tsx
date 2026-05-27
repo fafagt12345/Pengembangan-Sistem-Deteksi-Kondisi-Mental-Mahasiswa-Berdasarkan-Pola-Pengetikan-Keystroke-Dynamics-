@@ -89,7 +89,8 @@ export const KeystrokeEngine = () => {
       });
 
       alert(t("saveSuccess") || "Data berhasil disimpan!");
-      router.push("/dashboard");
+      router.refresh(); // Membersihkan cache agar data terbaru masuk
+      router.push("/history"); // Navigasi ke halaman riwayat
     } catch (error) {
       console.error("Error saving session:", error);
       alert("Gagal menyimpan data.");

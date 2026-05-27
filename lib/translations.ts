@@ -22,7 +22,8 @@ export const translations = {
     cognitiveFatigue: "Kelelahan Kognitif",
     normal: "Normal / Stabil",
     typingSpeed: "Kecepatan Mengetik",
-    stressIndicator: "Indikator Stres",
-    viewHistoryDesc: "Berikut adalah riwayat analisis ketikan Anda sebelumnya."
+    stressIndicator: "Indikator Kondisi",
+    historyTitle: "Riwayat Analisis",
+    viewHistoryDesc: "Berikut adalah daftar riwayat analisis kondisi kesehatan mental berdasarkan pola ketikan Anda."
   }
 };
