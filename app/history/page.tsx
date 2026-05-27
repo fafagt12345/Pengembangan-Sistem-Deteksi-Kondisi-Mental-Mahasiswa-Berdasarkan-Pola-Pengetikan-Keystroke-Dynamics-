@@ -12,10 +12,16 @@ export default function HistoryPage() {
   const { user } = useAuthStore();
   const [sessions, setSessions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchHistory = async () => {
-      if (!user) return;
+      // Jika user belum login atau store belum siap, jangan fetch dulu
+      if (!user?.uid) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const q = query(
           collection(db, "typing_sessions"),
@@ -30,6 +36,7 @@ export default function HistoryPage() {
         setSessions(data);
       } catch (error) {
         console.error("Error fetching history:", error);
+        setError(t("fetchError") || "Gagal memuat data. Pastikan indeks database telah dikonfigurasi.");
       } finally {
         setLoading(false);
       }
@@ -54,6 +61,13 @@ export default function HistoryPage() {
               <div className="flex flex-col items-center justify-center py-20 gap-4">
                 <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
                 <p className="text-slate-400">Memuat riwayat...</p>
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <div className="rounded-full bg-red-500/10 p-4 mb-4">
+                  <FileSearch className="h-10 w-10 text-red-500" />
+                </div>
+                <p className="text-red-400 max-w-md">{error}</p>
               </div>
             ) : sessions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">

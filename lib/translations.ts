@@ -24,7 +24,8 @@ export const translations = {
     typingSpeed: "Kecepatan Mengetik",
     stressIndicator: "Indikator Kondisi",
     historyTitle: "Riwayat Analisis",
-    viewHistoryDesc: "Berikut adalah daftar riwayat analisis kondisi kesehatan mental berdasarkan pola ketikan Anda."
+    viewHistoryDesc: "Berikut adalah daftar riwayat analisis kondisi kesehatan mental berdasarkan pola ketikan Anda.",
+    fetchError: "Gagal memuat data. Jika ini pertama kali, sistem mungkin sedang membangun indeks database."
   },
   en: {
     fullName: "Full Name",
@@ -51,6 +52,7 @@ export const translations = {
     typingSpeed: "Typing Speed",
     stressIndicator: "Condition Indicator",
     historyTitle: "Analysis History",
-    viewHistoryDesc: "Below is the history of mental health condition analysis based on your typing patterns."
+    viewHistoryDesc: "Below is the history of mental health condition analysis based on your typing patterns.",
+    fetchError: "Failed to load data. The database index might still be building."
   }
 };
