@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Brain, Keyboard, Activity } from 'lucide-react';
 import { db } from '@/lib/firebase';
@@ -17,6 +18,7 @@ interface KeyLog {
 export const KeystrokeEngine = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
+  const router = useRouter();
   const [text, setText] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [metrics, setMetrics] = useState({ dwell: 0, flight: 0, wpm: 0, backspaces: 0 });
@@ -85,7 +87,9 @@ export const KeystrokeEngine = () => {
         analysis,
         timestamp: serverTimestamp(),
       });
-      alert(t("saveSuccess"));
+
+      alert(t("saveSuccess") || "Data berhasil disimpan!");
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error saving session:", error);
       alert("Gagal menyimpan data.");

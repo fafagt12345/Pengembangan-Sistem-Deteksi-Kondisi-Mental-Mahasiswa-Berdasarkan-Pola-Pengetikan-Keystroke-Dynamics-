@@ -18,34 +18,11 @@ export const translations = {
     profilePhoto: "Foto Profil",
     enterName: "Masukkan nama Anda",
     registerNow: "Daftar Sekarang",
-    alreadyHaveAccount: "Sudah punya akun?",
-    signInNow: "Masuk Sekarang",
-    
-    // Admin
-    admin: "Admin",
-    controlCenter: "Pusat kontrol untuk pemangku kepentingan penelitian.",
-    manageSettings: "Kelola pengaturan",
-    userAccess: "Akses Pengguna",
-    userAccessDesc: "Kelola peran dan izin.",
-    uptime: "uptime",
-    secureEnvironment: "Lingkungan penelitian yang aman dan stabil.",
-    insight: "Wawasan",
-    deepReview: "Tinjauan Mendalam",
-    deepReviewDesc: "Gunakan tampilan riwayat lengkap untuk mengidentifikasi pola dari waktu ke waktu, menghubungkan perubahan dengan fase studi, dan mendukung keputusan konseling berbasis bukti.",
-    nextStep: "Langkah Selanjutnya",
-    expandResearch: "Ingin memperluas penelitian? Bandingkan catatan sesi ini dengan faktor kontekstual dan jadwalkan penilaian lanjutan untuk peningkatan berkelanjutan.",
-    reviewAnalysis: "Tinjau Analisis",
-    
-    // Docs
-    docs: "Dokumentasi",
-    findDetails: "Temukan detail untuk setiap alur kerja.",
-    startTrial: "Mulai Uji Coba",
-    gettingStarted: "Memulai",
-    gettingStartedDesc: "Cara mendaftar, menjalankan penilaian, dan menginterpretasikan laporan.",
-    integration: "Integrasi",
-    integrationDesc: "Catatan desain antarmuka, aliran data, dan panduan ekspor.",
-    uxPatterns: "Pola UX",
-    uxPatternsDesc: "Halaman yang direkomendasikan, perilaku mobile, dan alur kerja tinjauan.",
-  },
-  en: {} // Ensure you close the 'id' block and add 'en' keys as needed
+    highStress: "Stres Tinggi",
+    cognitiveFatigue: "Kelelahan Kognitif",
+    normal: "Normal / Stabil",
+    typingSpeed: "Kecepatan Mengetik",
+    stressIndicator: "Indikator Stres",
+    viewHistoryDesc: "Berikut adalah riwayat analisis ketikan Anda sebelumnya."
+  }
 };
